@@ -1,3 +1,3 @@
 # Feather-Watch-App
 
-Proived BLE functionality to a feather watch
+Provides the BLE functionality to a feather watch
