@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     public MainActivity() {
         super();
-        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
         deviceList = new ArrayList<>();
         deviceNameList = new ArrayList<>();
         settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
@@ -133,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
         //Calendar cal = Calendar.getInstance();
         //Log.i("WatchProg", "T|" + (cal.get(Calendar.YEAR) - 2000) + "|" + cal.get(Calendar.MONTH) + "|" + cal.get(Calendar.DAY_OF_MONTH) + "|" + cal.get(Calendar.HOUR_OF_DAY) + "|" + cal.get(Calendar.MINUTE) + "|" + cal.get(Calendar.SECOND) + "|" + cal.get(Calendar.DAY_OF_WEEK));
         final ArrayList<AppData> dataModels = new ArrayList<>();
