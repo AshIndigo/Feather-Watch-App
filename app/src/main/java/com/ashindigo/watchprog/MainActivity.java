@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter bluetoothAdapter;
+    static BatteryManager bm;
     private ListView listView;
     protected ArrayList<BluetoothDevice> deviceList;
     protected ArrayList<String> deviceNameList;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     public MainActivity() {
         super();
+        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
         deviceList = new ArrayList<>();
         deviceNameList = new ArrayList<>();
         settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
