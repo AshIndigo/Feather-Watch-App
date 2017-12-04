@@ -32,6 +32,7 @@ class BLEThread extends Thread {
                             // TODO: Check for 20 byte limit
                             //BLEGattCallback.chara.setValue(NotificationParser.parseNotification(notifs.get(i)));
                             // -_-
+                            String test = "N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title");
                             BLEGattCallback.chara.setValue("N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title")); // Just try notif title
                             //BLEGattCallback.chara.setValue("N|" + notifs.get(i).getNotification().extras.getString("android.title") + "|" + notifs.get(i).getNotification().extras.getString("android.text"));
                             MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);

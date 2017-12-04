@@ -22,6 +22,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -143,9 +144,12 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog notifListenerDialog = buildNotifAlterDialog();
             notifListenerDialog.show();
         }
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.ashindigo.watchprog.notificationlistener");
-        registerReceiver(broadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("Msg"));
+
+        //IntentFilter intentFilter = new IntentFilter();
+        //intentFilter.addAction("com.ashindigo.watchprog.notificationlistener");
+        //intentFilter.addAction("Msg");
+        //registerReceiver(broadcastReceiver, intentFilter);
         startService(new Intent(this, WatchService.class));
         List<ApplicationInfo> installedApplications = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         for (int i = 0; installedApplications.size() > i; i++) {
