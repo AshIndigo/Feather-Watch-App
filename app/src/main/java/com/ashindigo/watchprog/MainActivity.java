@@ -144,10 +144,11 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog notifListenerDialog = buildNotifAlterDialog();
             notifListenerDialog.show();
         }
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("Msg"));
 
-        //IntentFilter intentFilter = new IntentFilter();
-        //intentFilter.addAction("com.ashindigo.watchprog.notificationlistener");
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.ashindigo.watchprog.notificationlistener");
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+
         //intentFilter.addAction("Msg");
         //registerReceiver(broadcastReceiver, intentFilter);
         startService(new Intent(this, WatchService.class));
