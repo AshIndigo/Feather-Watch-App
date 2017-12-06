@@ -24,8 +24,10 @@ class BLEThread extends Thread {
             while (running) {
                 if (BLEGattCallback.chara != null && MainActivity.gattD != null) {
                     sleep(5000);
-                    BLEGattCallback.chara.setValue("B|" + Integer.toString(MainActivity.bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)) + "|E");
-                    MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                    if (notifs.size() <= 0) {
+                        BLEGattCallback.chara.setValue("B|" + Integer.toString(MainActivity.bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)) + "|E");
+                        MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                    }
                     if (notifs.size() > 0) {
                         for (int i = 0; notifs.size() > i; i++) {
                             // Notifs packet
@@ -33,7 +35,7 @@ class BLEThread extends Thread {
                             //BLEGattCallback.chara.setValue(NotificationParser.parseNotification(notifs.get(i)));
                             // -_-
                             //String test = "N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title");
-                            BLEGattCallback.chara.setValue("\n" + "N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title") + "|E"); // Just try notif title
+                            BLEGattCallback.chara.setValue("N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title") + "|E"); // Just try notif title
                             //BLEGattCallback.chara.setValue("N|" + notifs.get(i).getNotification().extras.getString("android.title") + "|" + notifs.get(i).getNotification().extras.getString("android.text"));
                             MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
                             notifs.remove(i);
