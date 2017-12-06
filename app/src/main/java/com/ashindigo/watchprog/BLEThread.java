@@ -26,6 +26,7 @@ class BLEThread extends Thread {
                     sleep(5000);
                     BLEGattCallback.chara.setValue("B|" + Integer.toString(MainActivity.bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)) + "|E");
                     MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                    sleep(1000);
                     if (notifs.size() > 0) {
                         for (int i = 0; notifs.size() > i; i++) {
                             // Notifs packet
