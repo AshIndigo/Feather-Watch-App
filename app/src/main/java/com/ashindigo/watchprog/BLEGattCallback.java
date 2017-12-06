@@ -53,8 +53,8 @@ class BLEGattCallback extends BluetoothGattCallback implements BluetoothAdapter.
 
         Log.i("WatchProg", TextUtils.join(", ", gatt.getServices()));
         chara = gatt.getService(UART_UUID).getCharacteristic(TX_UUID);
-        chara.setValue("S|test".getBytes());
-        gatt.writeCharacteristic(chara);
+        //chara.setValue("S|test".getBytes());
+        //gatt.writeCharacteristic(chara);
 
     }
 

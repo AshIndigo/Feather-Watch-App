@@ -148,9 +148,6 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.ashindigo.watchprog.notificationlistener");
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
-
-        //intentFilter.addAction("Msg");
-        //registerReceiver(broadcastReceiver, intentFilter);
         startService(new Intent(this, WatchService.class));
         List<ApplicationInfo> installedApplications = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         for (int i = 0; installedApplications.size() > i; i++) {
