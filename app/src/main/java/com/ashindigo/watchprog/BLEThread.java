@@ -12,6 +12,7 @@ class BLEThread extends Thread {
 
     boolean running = true;
     static ArrayList<StatusBarNotification> notifs = new ArrayList<>();
+    String title[] = new String[]{null, null, null, null};
 
     @Override
     public void run() {
@@ -29,13 +30,22 @@ class BLEThread extends Thread {
                         MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
                     }
                     if (notifs.size() > 0) {
-                        for (int i = 0; notifs.size() > i; i++) {
+                        title[0] = notifs.get(0).getNotification().extras.getString("android.title");
+                        title[1] = (!notifs.isEmpty()) ? notifs.get(1).getNotification().extras.getString("android.title") : "null";
+                        title[2] = (!notifs.isEmpty()) ? notifs.get(2).getNotification().extras.getString("android.title") : "null";
+                        title[3] = (!notifs.isEmpty()) ? notifs.get(3).getNotification().extras.getString("android.title") : "null";
+                        title[4] = (!notifs.isEmpty()) ? notifs.get(4).getNotification().extras.getString("android.title") : "null";
+                        //for (int i = 0; notifs.size() > i; i++) {
                             // Notifs packet
                             // TODO: Check for 20 byte limit
-                            BLEGattCallback.chara.setValue("N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title") + "|E"); // Just try notif title
-                            MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                            //BLEGattCallback.chara.setValue("N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title") + "|E"); // Just try notif title
+                            for (int i = 0; i < 5; i++) {
+                                BLEGattCallback.chara.setValue("N|" + title[i] + "|E");
+                                MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                                wait(500);
+                            }
                             //notifs.remove(i);
-                        }
+                        //}
                         if (notifs.size() == 4) {
                             notifs.clear();
                         }
