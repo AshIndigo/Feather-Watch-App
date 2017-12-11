@@ -12,7 +12,7 @@ class BLEThread extends Thread {
 
     boolean running = true;
     static ArrayList<StatusBarNotification> notifs = new ArrayList<>();
-    String title[] = new String[]{null, null, null, null};
+    String title[] = new String[]{null, null, null, null, null};
 
     @Override
     public void run() {
@@ -24,32 +24,37 @@ class BLEThread extends Thread {
             //MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
             while (running) {
                 if (BLEGattCallback.chara != null && MainActivity.gattD != null) {
-                    sleep(5000);
+                    sleep(3000);
                     if (notifs.size() <= 0) {
                         BLEGattCallback.chara.setValue("B|" + Integer.toString(MainActivity.bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)) + "|E");
                         MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
                     }
                     if (notifs.size() > 0) {
                         title[0] = notifs.get(0).getNotification().extras.getString("android.title");
-                        title[1] = (!notifs.isEmpty()) ? notifs.get(1).getNotification().extras.getString("android.title") : "null";
-                        title[2] = (!notifs.isEmpty()) ? notifs.get(2).getNotification().extras.getString("android.title") : "null";
-                        title[3] = (!notifs.isEmpty()) ? notifs.get(3).getNotification().extras.getString("android.title") : "null";
-                        title[4] = (!notifs.isEmpty()) ? notifs.get(4).getNotification().extras.getString("android.title") : "null";
-                        //for (int i = 0; notifs.size() > i; i++) {
+                        title[1] = (notifs.size() > 1) ? notifs.get(1).getNotification().extras.getString("android.title") : "null";
+                        title[2] = (notifs.size() > 2) ? notifs.get(2).getNotification().extras.getString("android.title") : "null";
+                        title[3] = (notifs.size() > 3) ? notifs.get(3).getNotification().extras.getString("android.title") : "null";
+                        title[4] = (notifs.size() > 4) ? notifs.get(4).getNotification().extras.getString("android.title") : "null";
                             // Notifs packet
                             // TODO: Check for 20 byte limit
                             //BLEGattCallback.chara.setValue("N|" + Integer.toString(i) + "|" + notifs.get(i).getNotification().extras.getString("android.title") + "|E"); // Just try notif title
-                            for (int i = 0; i < 5; i++) {
-                                BLEGattCallback.chara.setValue("N|" + title[i] + "|E");
-                                MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
-                                wait(500);
+                            for (int i = 0; i < 4; i++) {
+                                if (!title[i].equals("null")) {
+                                    BLEGattCallback.chara.setValue("N|" + i + "|" + title[i] + "|E");
+                                    MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                                    sleep(500);
+                                }
                             }
-                            //notifs.remove(i);
-                        //}
-                        if (notifs.size() == 4) {
-                            notifs.clear();
-                        }
+
                     }
+
+                    if (notifs.isEmpty()) {
+                        title[0] = "null";
+                        BLEGattCallback.chara.setValue("N|" + 0 + "|" + title[0] + "|E");
+                        MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
+                        sleep(500);
+                    }
+
                 }
 
             }
