@@ -17,13 +17,6 @@ class BLEThread extends Thread {
     @Override
     public void run() {
         try {
-            // Sends time
-            // _should work_
-            if (BLEGattCallback.chara != null && MainActivity.gattD != null) {
-                Calendar cal = Calendar.getInstance();
-                BLEGattCallback.chara.setValue("T|" + (cal.get(Calendar.YEAR) - 2000) + "|" + cal.get(Calendar.MONTH) + "|" + cal.get(Calendar.DAY_OF_MONTH) + "|" + cal.get(Calendar.HOUR_OF_DAY) + "|" + cal.get(Calendar.MINUTE) + "|" + cal.get(Calendar.SECOND) + "|" + cal.get(Calendar.DAY_OF_WEEK)); // Byte conversion needed? // T|year|month|day|hour|minute|second|DOW|E - Time packet
-                MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
-            }
             while (running) {
                 if (BLEGattCallback.chara != null && MainActivity.gattD != null) {
                     sleep(5000);

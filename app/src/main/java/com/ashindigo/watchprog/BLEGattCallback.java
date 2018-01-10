@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 
@@ -53,8 +54,9 @@ class BLEGattCallback extends BluetoothGattCallback implements BluetoothAdapter.
 
         Log.i("WatchProg", TextUtils.join(", ", gatt.getServices()));
         chara = gatt.getService(UART_UUID).getCharacteristic(TX_UUID);
-        //chara.setValue("S|test".getBytes());
-        //gatt.writeCharacteristic(chara);
+        Calendar cal = Calendar.getInstance();
+        BLEGattCallback.chara.setValue("T|" + (cal.get(Calendar.YEAR) - 2000) + "|" + cal.get(Calendar.MONTH) + "|" + cal.get(Calendar.DAY_OF_MONTH) + "|" + cal.get(Calendar.HOUR_OF_DAY) + "|" + cal.get(Calendar.MINUTE) + "|" + cal.get(Calendar.SECOND) + "|" + cal.get(Calendar.DAY_OF_WEEK)); // Byte conversion needed? // T|year|month|day|hour|minute|second|DOW|E - Time packet
+        MainActivity.gattD.writeCharacteristic(BLEGattCallback.chara);
 
     }
 
