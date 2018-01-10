@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private BLEGattCallback gattCallback;
     private ScanCallback scanCallback;
     public static BluetoothGatt gattD;
-    private BroadcastReceiver broadcastReceiver = null; // hopefully that doesnt break registerReciever
+    private BroadcastReceiver broadcastReceiver = null;
     private LinearLayout optionsLayout;
 
     public MainActivity() {
